@@ -16,7 +16,7 @@ const Direction = db.define('directions',{
     destination:Sequelize.TEXT,
     hash:Sequelize.TEXT
 })
-db.sync({force:true})
+db.sync()
     .then(e=>{
         console.log("Database Synced")
     }).catch(e=>{
