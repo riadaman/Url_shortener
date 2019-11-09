@@ -3,23 +3,19 @@ const router = require('express').Router();
 const {User} = require('../src/utils/db');
 const _p = require('../src/utils/promise_errors');
 const jwt = require('jsonwebtoken');
-const { check, validationResult } = require('express-validator');
+const { check} = require('express-validator');
 const {validate} = require('../src/utils/password');
 const {app_secret} = require('../src/config.json');
-
+const  rejecInvalid = require('../middlewares/reject_invalid');
+ 
 
 const loginValidator = [
     check('email').isEmail(),
     check('password').isLength({min:5})
 ];
 
-router.post('/login',loginValidator, async(req,res)=>{
-    const errors = (validationResult(req));
-    if(!errors.isEmpty()){
-        return res.status(422).json({
-            errors:errors.array()
-        });
-    }
+router.post('/login',loginValidator,rejecInvalid,async(req,res)=>{
+   
     let {password,email} = req.body;
     let [uer,user] = await _p(User.findOne({
         where:{
@@ -27,10 +23,7 @@ router.post('/login',loginValidator, async(req,res)=>{
         }
     }));
     if(!user && uer){
-        res.status(401).json({
-            error:true,
-            message:"User not found"
-        });
+        return next(uer);
     }
     else{
         let[salt,hash] = user.password.split(".");
@@ -47,10 +40,7 @@ router.post('/login',loginValidator, async(req,res)=>{
             })
         }
         else{
-            res.status(401).json({
-                error:true,
-                message:"password incorrect"
-            });
+            next(new Error("Password Invalid"));
         }
     }
 })
