@@ -1,41 +1,34 @@
 const router = require('express').Router();
-const { check, validationResult } = require('express-validator');
+const { check} = require('express-validator');
 const {generate} = require('../src/utils/password');
 const {User} = require('../src/utils/db');
 const _p = require('../src/utils/promise_errors');
+const  rejecInvalid = require('../middlewares/reject_invalid');
 
 const signupValidator = [
     check('name').exists(),
     check('email').isEmail(),
     check('password').isLength({min:5})
 ];
-router.post('/signup',signupValidator,async(req,res)=>{
-    const errors = (validationResult(req));
-    if(!errors.isEmpty()){
-        return res
-            .status(422)
-            .json({errors:errors.array()});
-    }
-    let chunks = generate(req.body.password);
-   let password = `${chunks.salt}.${chunks.hash}`;
-
-let {name,email} = req.body;
-let [ucErr,userCreated] = await _p(User.create({
-    name,email,password
-}));
-if (ucErr && !userCreated){
-    res.status(400).json({
-        error:true,
-        message: ucErr.message
-    });
+router.post('/signup',signupValidator,rejecInvalid,async(req,res)=>{
     
-}
-else{
-    res.json({
-        error:false,
-        message:"User Created"
-    });
-}
+    let chunks = generate(req.body.password);
+    let password = `${chunks.salt}.${chunks.hash}`;
+
+    let {name,email} = req.body;
+    let [ucErr,userCreated] = await _p(User.create({
+        name,email,password
+    }));
+    if (ucErr && !userCreated){
+        return next(ucErr);
+    
+        }
+        else{
+            res.json({
+                error:false,
+                message:"User Created"
+            });
+        }
 })
 
 
