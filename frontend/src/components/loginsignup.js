@@ -13,6 +13,15 @@ export default class LoginSignup extends Component {
     showLoginForm = ()=>{
         this.setState({isSignup:false})
     }
+    updateStateValue = (e)=>{
+        let tgt = e.target;
+        let stateName = tgt.name;
+        let val  = tgt.value
+        //debugger;
+        this.setState({
+            [stateName]:val
+        });
+    }
   render() {
     return (
       <div>
