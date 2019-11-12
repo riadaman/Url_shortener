@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 
 export default class LoginSignup extends Component {
     state = {
-        isSignup:false
+        isSignup:false,
+        fullname: "",
+        email: " ",
+        password: ""
     }
     showSignupForm = ()=>{
         this.setState({isSignup:true})
@@ -14,9 +17,22 @@ export default class LoginSignup extends Component {
     return (
       <div>
           <div className="loginsignup">
-              <input style={{...styles.input,display: this.state.isSignup?'block':'none',}} type="text" name="full name" placeholder ="Full Name"/>
-              <input style={styles.input}  type="email" name="email" placeholder ="Email Address"/> 
-              <input style={styles.input}  type="password" name="password" placeholder ="password"/>
+              <input onChange = {this.updateStateValue}
+              style={{...styles.input,display: this.state.isSignup?'block':'none',}} 
+              type="text" 
+              name="fullname" 
+              placeholder ="Full Name"/>
+
+              <input onChange = {this.updateStateValue}
+              style={styles.input}  
+              type="email" name="email" 
+              placeholder ="Email Address"/> 
+
+              <input onChange = {this.updateStateValue}
+              style={styles.input}  
+              type="password"
+               name="password" 
+               placeholder ="password"/>
           </div>
           <div style={{display: this.state.isSignup?'none':'block'}} onClick={this.showSignupForm} >Sign Up Now</div>
           <div style={{display: this.state.isSignup?'block':'none'}} onClick={this.showLoginForm} >Go Back To Login</div>
