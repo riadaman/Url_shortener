@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-//import '../style.css';
+import axios from 'axios';
+import '../style.css';
 
 export default class LoginSignup extends Component {
     state = {
@@ -23,9 +24,17 @@ export default class LoginSignup extends Component {
             [stateName]:val
         });
     }
+    loginSignup = ()=>{
+        if(this.state.isSignup){
+
+        }
+        else{
+
+        }
+    }
   render() {
     return (
-      <div >
+      <div className="container">
           <div className="loginsignup">
               <input onChange = {this.updateStateValue}
               style={{...styles.input,display: this.state.isSignup?'block':'none'}} 
@@ -44,8 +53,9 @@ export default class LoginSignup extends Component {
                name="password" 
                placeholder ="password"/>
           </div>
-          <div  style={{display: this.state.isSignup?'none':'block'}} onClick={this.showSignupForm} >Sign Up Now</div>
-          <div  style={{display: this.state.isSignup?'block':'none'}} onClick={this.showLoginForm} >Go Back To Login</div>
+          <div className="button" onClick={this.loginSignup}>{this.state.isSignup?'Sign up' : 'Login'}</div>
+          <div className="button" style={{display: this.state.isSignup?'none':'block'}} onClick={this.showSignupForm} >Sign Up Now →</div>
+          <div className="button" style={{display: this.state.isSignup?'block':'none'}} onClick={this.showLoginForm} >← Go Back To Login</div>
       
       </div>
       
