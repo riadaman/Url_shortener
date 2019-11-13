@@ -8,7 +8,8 @@ export default class LoginSignup extends Component {
         isSignup:false,
         fullname: "",
         email: " ",
-        password: ""
+        password: "",
+        loginSuccess:false
     }
     showSignupForm = ()=>{
         this.setState({isSignup:true})
@@ -26,10 +27,11 @@ export default class LoginSignup extends Component {
         });
     }
     loginSignup = ()=>{
+
+        let { email,password } = this.state;
         if(this.state.isSignup){
             //signup
             if(this.state.fullname && this.state.email && this.state.password){
-                let { email,password } = this.state;
                 let name = this.state.fullname;
                 axios.post(`${valuse.BASE}/signup`,{name,email,password})
                     .then(d=>{
@@ -53,17 +55,45 @@ export default class LoginSignup extends Component {
                 alert('parameter missing for signup')
             }
         }
-        //login
+        
         else{
-            if(this.state.email && this.state.password){
-
-            }
-            else{
-                alert('parameter missing for login')
-            }
-
-        }
+             // Login Code
+      axios.post(`${valuse.BASE}/login`,{email,password})
+      .then(success=>{
+        //debugger;
+        localStorage.setItem('access_token',success.data.token);
+        this.setState({loginSuccess:true});
+      })
+      .catch(e=>{
+        alert(`Login Unsuccessful`);
+      });
+    if(this.state.email && this.state.password){
+      
     }
+    else{
+      alert('Parameter missing for Login');
+    }
+  }
+}
+            //login
+    //         axios.post(`${valuse.BASE}/login`,{email,password})
+    //             .then(success=>{
+    //                 //debugger
+    //                 localStorage.setItem('access_token',success.data.token);
+    //                 this.setState({loginSuccess:true});
+    //             })
+    //             .catch(e=>{
+    //                 alert(`Login unsuccessfull`)
+    //             });
+    //         if(this.state.email && this.state.password){
+
+    //         }
+    //         else{
+    //             alert('parameter missing for login')
+    //         }
+
+    //     }
+    // }
   render() {
     return (
       <div className="container">
