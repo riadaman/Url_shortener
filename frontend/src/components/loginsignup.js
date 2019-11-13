@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+import valuse from '../value';
+import '../style.css';
 
 export default class LoginSignup extends Component {
     state = {
@@ -22,12 +25,52 @@ export default class LoginSignup extends Component {
             [stateName]:val
         });
     }
+    loginSignup = ()=>{
+        if(this.state.isSignup){
+            //signup
+            if(this.state.fullname && this.state.email && this.state.password){
+                let { email,password } = this.state;
+                let name = this.state.fullname;
+                axios.post(`${valuse.BASE}/signup`,{name,email,password})
+                    .then(d=>{
+                        alert("Congratulations! Sign up completed");
+                        this.setState({
+                            isSignup:false
+                        });
+                    })
+                    .catch(e=>{
+                        console.log('Signup error ! please try again');
+                    })
+                    .then(d=>{
+                        this.setState({
+                            fullname:"",
+                            email: "",
+                            password: ""
+                        });
+                    })
+            }
+            else{
+                alert('parameter missing for signup')
+            }
+        }
+        //login
+        else{
+            if(this.state.email && this.state.password){
+
+            }
+            else{
+                alert('parameter missing for login')
+            }
+
+        }
+    }
   render() {
     return (
-      <div>
+      <div className="container">
+          <h2 className="header">{this.state.isSignup?'Sign UP' : 'Login'}</h2>
           <div className="loginsignup">
               <input onChange = {this.updateStateValue}
-              style={{...styles.input,display: this.state.isSignup?'block':'none',}} 
+              style={{...styles.input,display: this.state.isSignup?'block':'none'}} 
               type="text" 
               name="fullname" 
               placeholder ="Full Name"/>
@@ -43,8 +86,9 @@ export default class LoginSignup extends Component {
                name="password" 
                placeholder ="password"/>
           </div>
-          <div style={{display: this.state.isSignup?'none':'block'}} onClick={this.showSignupForm} >Sign Up Now</div>
-          <div style={{display: this.state.isSignup?'block':'none'}} onClick={this.showLoginForm} >Go Back To Login</div>
+          <div className="button" onClick={this.loginSignup}>{this.state.isSignup?'Sign up' : 'Login'}</div>
+          <div className="button" style={{display: this.state.isSignup?'none':'block'}} onClick={this.showSignupForm} >Sign Up Now →</div>
+          <div className="button" style={{display: this.state.isSignup?'block':'none'}} onClick={this.showLoginForm} >← Go Back To Login</div>
       
       </div>
       

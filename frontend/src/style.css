@@ -1,0 +1,35 @@
+.container{
+    width:300px;
+    padding:100px;
+    background-color:#eee;
+    border-radius:5px;
+
+}
+.header{
+    text-align: center;
+}
+.button{
+    background-color:#3498db;
+    display:block;
+    padding:10px 15px;
+    margin:10px 0px;
+    color:white;
+    cursor: pointer;
+    text-align: center;
+    width: 100%;
+}
+input{
+    margin:10px 0px;
+    width:100%;
+    box-sizing:border-box;
+    padding:5px;
+}
+html,body{
+    height:100%;
+}
+body{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    font-family: sans-serif;
+}
