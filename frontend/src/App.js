@@ -11,9 +11,13 @@ import {
 //import logo from './logo.svg';
 //import './App.css';
 function Home(){
-  return (<div>
-    <Link to="/loginsignup">Log in</Link>
-    </div>)
+  let token = localStorage.getItem('access_token');
+  if(token){
+    return (<Redirect to ="/"/>);
+  }
+  else{
+    return (<Redirect to = "/loginsignup"/>);
+  }
 }
 
 class App extends Component{

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import valuse from '../value';
 import '../style.css';
+import {Redirect} from 'react-router-dom';
 
 export default class LoginSignup extends Component {
     state = {
@@ -75,26 +76,15 @@ export default class LoginSignup extends Component {
     }
   }
 }
-            //login
-    //         axios.post(`${valuse.BASE}/login`,{email,password})
-    //             .then(success=>{
-    //                 //debugger
-    //                 localStorage.setItem('access_token',success.data.token);
-    //                 this.setState({loginSuccess:true});
-    //             })
-    //             .catch(e=>{
-    //                 alert(`Login unsuccessfull`)
-    //             });
-    //         if(this.state.email && this.state.password){
-
-    //         }
-    //         else{
-    //             alert('parameter missing for login')
-    //         }
-
-    //     }
-    // }
+componentWillMount(){
+    if(localStorage.getItem('access_token')){
+        this.setState({loginSuccess:true});
+    }
+}
   render() {
+      if(this.state.loginSuccess){
+          return (<Redirect to="/"/>);
+      }
     return (
       <div className="container">
           <h2 className="header">{this.state.isSignup?'Sign UP' : 'Login'}</h2>
