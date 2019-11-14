@@ -11,8 +11,8 @@ export default class Urls extends Component {
     }
   }
   render() {
-    if(this.state.loggedIn){
-      return (<Ridirect to ="/"/>);
+    if(!this.state.loggedIn){
+      return (<Redirect to ="/"/>);
     }
     return (
       <div> Private Component </div>

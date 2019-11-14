@@ -13,7 +13,7 @@ import {
 function Home(){
   let token = localStorage.getItem('access_token');
   if(token){
-    return (<Redirect to ="/"/>);
+    return (<Redirect to ="/urls"/>);
   }
   else{
     return (<Redirect to = "/loginsignup"/>);
