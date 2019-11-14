@@ -33,3 +33,48 @@ body{
     justify-content: center;
     font-family: sans-serif;
 }
+.commonsize{
+    width:90vw;
+    padding:20px;
+    box-sizing: border-box;
+}
+.urlentry{
+    background-color:#2980b9;
+    color:white;
+    box-shadow:1px 1px 4px 0px #ccc;
+}
+.success{
+    background-color:#27ae60;
+    color:white;
+    margin-top:20px;
+    border-radius:10px;
+}
+.url-list{
+    width:90vw;
+}
+.url{
+    padding:20px;
+    background-color:#e67e22;
+    margin-bottom:3px;
+}
+a{
+    color:#fff;
+}
+.shortened-url{
+    font-size:1.4em;
+    color:#fff;
+}
+.smalltext{
+    margin-top:10px;
+}
+.smalltext a{
+    font-size:0.8em;
+    color:#eee;
+    text-decoration: none;
+}
+.empty{
+    text-align:center;
+    background:#eee;
+    padding:40px;
+    font-size:1.8em;
+}
